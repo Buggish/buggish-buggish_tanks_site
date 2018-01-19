@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+        </script>
+                <script>
+            $(document).ready(function() {
+                $("button").click(function() {
+                    //console.log("clicked");
+                    $.ajax({
+                        url: "https://data.cityofchicago.org/resource/cwig-ma7x.json",
+                        success: function(result) {
+                            console.log(result);
+                            var output = "";
+
+                            $.each(result, function(index, value){
+                                //console.log(index + " " + value + " " + value + );
+
+                                // output += "<div class='output'>" + value.aka_name + " " + value.results +  " " +  +"</div>";
+                                $("#results").append("<div>"+ value.aka_name + "   " +   value.address + "<br> "+ value.facility_type  +"<br>" + value.results + " " + " "  + "<br>"+" </div>");
+
+
+
+
+                            });
+
+                            //$("#results").html(output);
+                        }
+                    })
+                });
+            });
+        </script>
+  </head>
+  <body>
+    <h3>You Have Failed</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var Chicago = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: Chicago
+        });
+        var marker = new google.maps.Marker({
+          position: Chicago,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBw8wvC47KlmUlxWm1QRSD5NviCap8_3ic&callback=initMap">
+    
+    </script>
+  </body>
+</html>
